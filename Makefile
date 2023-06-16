@@ -22,4 +22,10 @@ psql:
 test:
 	go test -v -cover ./...
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc psql
+server:
+	go run main.go
+
+mock:
+	mockgen -destination ./db/mock/store.go -package mockdb simplebank/db/sqlc Store
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc psql server mock
